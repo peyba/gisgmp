@@ -28,9 +28,9 @@ as
   WITH XMLNAMESPACES ('http://roskazna.ru/gisgmp/xsd/116/Organization' as [org])
   select @Xml = (
     select
-      /* Номер банковского счета */
+      /* РќРѕРјРµСЂ Р±Р°РЅРєРѕРІСЃРєРѕРіРѕ СЃС‡РµС‚Р° */
       [org:AccountNumber] = ltrim(rtrim(@Acc)),
-      /* Данные банка, в котором открыт счет */
+      /* Р”Р°РЅРЅС‹Рµ Р±Р°РЅРєР°, РІ РєРѕС‚РѕСЂРѕРј РѕС‚РєСЂС‹С‚ СЃС‡РµС‚ */
       [org:Bank] = @Bank 
     FOR XML PATH(''), ELEMENTS
   )

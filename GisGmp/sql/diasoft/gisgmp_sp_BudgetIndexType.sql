@@ -31,29 +31,29 @@ as
   WITH XMLNAMESPACES ('http://roskazna.ru/gisgmp/xsd/116/BudgetIndex' as [bdi])
   select @Xml = (
     select
-       /* Статус плательщика — реквизит 101 Распоряжения */
+       /* РЎС‚Р°С‚СѓСЃ РїР»Р°С‚РµР»СЊС‰РёРєР° вЂ” СЂРµРєРІРёР·РёС‚ 101 Р Р°СЃРїРѕСЂСЏР¶РµРЅРёСЏ */
       [bdi:Status] = right('0' + isnull(nullif(cast(@StatusSostav as varchar(2)), ''), '00'), 2),
-      /* Показатель основания платежа — реквизит 106 Распоряжения */
+      /* РџРѕРєР°Р·Р°С‚РµР»СЊ РѕСЃРЅРѕРІР°РЅРёСЏ РїР»Р°С‚РµР¶Р° вЂ” СЂРµРєРІРёР·РёС‚ 106 Р Р°СЃРїРѕСЂСЏР¶РµРЅРёСЏ */
       [bdi:Purpose] = isnull(nullif(@TaxBase, ''), '0'),
-      /* Налоговый период или код таможенного органа — реквизит 107 Распоряжения */
+      /* РќР°Р»РѕРіРѕРІС‹Р№ РїРµСЂРёРѕРґ РёР»Рё РєРѕРґ С‚Р°РјРѕР¶РµРЅРЅРѕРіРѕ РѕСЂРіР°РЅР° вЂ” СЂРµРєРІРёР·РёС‚ 107 Р Р°СЃРїРѕСЂСЏР¶РµРЅРёСЏ */
       [bdi:TaxPeriod] =
         case isnull(nullif(@TaxPeriod, ''), '0')
           when '0' then '0'
           else
             case
-              when left(@TaxPeriod, 2) in ('МС', 'КВ', 'ПЛ', 'ГД') then left(@TaxPeriod, 2) + '.' + substring(@TaxPeriod, 3, 2) + '.' + right(@TaxPeriod, 4)
+              when left(@TaxPeriod, 2) in ('РњРЎ', 'РљР’', 'РџР›', 'Р“Р”') then left(@TaxPeriod, 2) + '.' + substring(@TaxPeriod, 3, 2) + '.' + right(@TaxPeriod, 4)
               else @TaxPeriod
             end
         end,
-      /* Показатель номера документа — реквизит 108 Распоряжения */
+      /* РџРѕРєР°Р·Р°С‚РµР»СЊ РЅРѕРјРµСЂР° РґРѕРєСѓРјРµРЅС‚Р° вЂ” СЂРµРєРІРёР·РёС‚ 108 Р Р°СЃРїРѕСЂСЏР¶РµРЅРёСЏ */
       [bdi:TaxDocNumber] = isnull(nullif(@TaxNumberDoc, ''), '0'),
-      /* Показатель даты документа — реквизит 109 Распоряжения */
+      /* РџРѕРєР°Р·Р°С‚РµР»СЊ РґР°С‚С‹ РґРѕРєСѓРјРµРЅС‚Р° вЂ” СЂРµРєРІРёР·РёС‚ 109 Р Р°СЃРїРѕСЂСЏР¶РµРЅРёСЏ */
       [bdi:TaxDocDate] =
         case isnull(nullif(nullif(@TaxDate, ''), '00000000'), '0')
           when  '0' then '0'
           else left(@TaxDate, 2) + '.' + substring(@TaxDate, 3, 2) + '.' + right(@TaxDate, 4)
         end,
-      /* Показатель типа платежа — реквизит 110 Распоряжения */
+      /* РџРѕРєР°Р·Р°С‚РµР»СЊ С‚РёРїР° РїР»Р°С‚РµР¶Р° вЂ” СЂРµРєРІРёР·РёС‚ 110 Р Р°СЃРїРѕСЂСЏР¶РµРЅРёСЏ */
       [bdi:PaymentType] = isnull(nullif(@TaxType, ''), '0')
     FOR XML PATH(''), ELEMENTS
   )

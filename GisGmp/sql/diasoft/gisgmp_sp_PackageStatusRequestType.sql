@@ -13,7 +13,7 @@ as
 
   if nullif(ltrim(rtrim(@PackageID)), '') is null
   begin
-    raiserror('Не найден параметр PackageID', 18, -1)
+    raiserror('РќРµ РЅР°Р№РґРµРЅ РїР°СЂР°РјРµС‚СЂ PackageID', 18, -1)
     return
   end
 

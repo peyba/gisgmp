@@ -2,7 +2,7 @@ create procedure gisgmp_sp_InserttResponse
   @Xml xml
 as
 
-  /* Сохранение и обработка полученного ответа */
+  /* РЎРѕС…СЂР°РЅРµРЅРёРµ Рё РѕР±СЂР°Р±РѕС‚РєР° РїРѕР»СѓС‡РµРЅРЅРѕРіРѕ РѕС‚РІРµС‚Р° */
 
 go
 grant exec on gisgmp_sp_InserttResponse to public

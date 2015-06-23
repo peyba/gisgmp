@@ -57,7 +57,7 @@ as
   begin
 
     declare @Message varchar(256)
-    select @Message = 'Неизвестный тип ответа: ' + @ResponseType;
+    select @Message = 'РќРµРёР·РІРµСЃС‚РЅС‹Р№ С‚РёРї РѕС‚РІРµС‚Р°: ' + @ResponseType;
     raiserror(@Message, 16, 1);
 
   end

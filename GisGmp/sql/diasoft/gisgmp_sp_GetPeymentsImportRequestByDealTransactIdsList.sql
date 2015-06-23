@@ -10,7 +10,7 @@ as
   if @ARITHABORT = 'OFF' SET ARITHABORT ON
   /* END ARITHABORT */
 
-  /* таблица для хранения xml */
+  /* С‚Р°Р±Р»РёС†Р° РґР»СЏ С…СЂР°РЅРµРЅРёСЏ xml */
   declare @PaymentXmlList table (Body xml)
   
   declare
@@ -57,7 +57,7 @@ as
   )
   select @Xml = (
     select
-      /* Данные платежей */
+      /* Р”Р°РЅРЅС‹Рµ РїР»Р°С‚РµР¶РµР№ */
       [pir:Document/@originatorID] = (select top 1 Value from gisgmp_t_Config where Name = 'urn'),
       [pir:Document/pi:FinalPayment/@Id] = 'A_' + cast(newid() as varchar(36)),
       [pir:Document/pi:FinalPayment] = t.Body

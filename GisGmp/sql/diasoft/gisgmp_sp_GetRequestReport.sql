@@ -37,7 +37,7 @@ as
     and dt.TransactType in (4, 5)
     and dt.Date between @BeginDate and @EndDate
     and dt.Direction = 0
-    and dt.Confirmed <> 101 -- не фикт
+    and dt.Confirmed <> 101 -- РЅРµ С„РёРєС‚
     and dt.InstrumentID = 1195 -- **operdoc
     and substring(dt.numberext,2,1) = '1'
 

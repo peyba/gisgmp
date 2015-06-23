@@ -18,7 +18,7 @@ select 'docs_in_package', '1' union
 select 'urn',             '<ur_urn>' union
 select 'sender_name',     '<ur_name>' union
 select 'sender_code',     '<ur_code>' union
-select 'recipient_name',  'Казначейство России' union
+select 'recipient_name',  'РљР°Р·РЅР°С‡РµР№СЃС‚РІРѕ Р РѕСЃСЃРёРё' union
 select 'recipient_code',  'RKZN35001' union
 select 'service_name',    'RKZNGISGMP116' union
 select 'code_type',       'GSRV'
