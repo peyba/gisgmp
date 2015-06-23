@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xsd:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:pdr="http://roskazna.ru/gisgmp/xsd/116/PGU_DataRequest"
+	xmlns:com="http://roskazna.ru/gisgmp/xsd/116/Common"
+	targetNamespace="http://roskazna.ru/gisgmp/xsd/116/PGU_DataRequest"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://www.w3.org/2000/09/xmldsig#"
+		schemaLocation="xmldsig-core-schema.xsd"/>
+	<xsd:import namespace="http://roskazna.ru/gisgmp/xsd/116/Common"
+		schemaLocation="../entity/directory/Common.xsd"/>
+	<xsd:complexType name="DataRequest">
+		<xsd:sequence>
+			<xsd:element name="Filter">
+				<xsd:annotation>
+					<xsd:documentation>Фильтр для получения сущностей ГИС ГМП</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:annotation>
+							<xsd:documentation/>
+						</xsd:annotation>
+						<xsd:element name="Conditions">
+							<xsd:annotation>
+								<xsd:documentation>Условие для получения сущностей из ГИС ГМП</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:choice minOccurs="0">
+										<xsd:element name="ChargesIdentifiers">
+											<xsd:annotation>
+												<xsd:documentation>Список УИН, по которым запрашиваются сущности</xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:sequence>
+												<xsd:element name="SupplierBillID" maxOccurs="100">
+												<xsd:annotation>
+												<xsd:documentation>УИН</xsd:documentation>
+												</xsd:annotation>
+												<xsd:simpleType>
+												<xsd:restriction base="xsd:token">
+												<xsd:minLength value="1"/>
+												<xsd:maxLength value="25"/>
+												<xsd:pattern value="\c{20}"/>
+												<xsd:pattern value="\c{25}"/>
+												</xsd:restriction>
+												</xsd:simpleType>
+												</xsd:element>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="Payers">
+											<xsd:annotation>
+												<xsd:documentation>Список идентификаторов плательщиков, по которым запрашиваются сущности</xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:sequence>
+												<xsd:element ref="com:PayerIdentifier"
+												maxOccurs="100">
+												<xsd:annotation>
+												<xsd:documentation>Идентификатор плательщика</xsd:documentation>
+												</xsd:annotation>
+												</xsd:element>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:choice>
+									<xsd:element name="Timeslot" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Временной интервал, за который запрашиваются сущности</xsd:documentation>
+										</xsd:annotation>
+										<xsd:complexType>
+											<xsd:attribute name="startDate" type="xsd:dateTime"
+												use="required">
+												<xsd:annotation>
+												<xsd:documentation>Начальная дата временного интервала запроса</xsd:documentation>
+												</xsd:annotation>
+											</xsd:attribute>
+											<xsd:attribute name="endDate" type="xsd:dateTime"
+												use="required">
+												<xsd:annotation>
+												<xsd:documentation>Конечная дата временного интервала запроса</xsd:documentation>
+												</xsd:annotation>
+											</xsd:attribute>
+										</xsd:complexType>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="AdditionRestrictions" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Дополнительные ограничения</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="SubordinateIdList" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Идентификаторы участников косвенного взаимодействия</xsd:documentation>
+										</xsd:annotation>
+										<xsd:complexType>
+											<xsd:choice maxOccurs="100">
+												<xsd:element name="TaxpayerIdentification">
+												<xsd:annotation>
+												<xsd:documentation>Идентификация получателя средств</xsd:documentation>
+												</xsd:annotation>
+												<xsd:complexType>
+												<xsd:attribute name="inn" type="com:INNType"
+												use="required">
+												<xsd:annotation>
+												<xsd:documentation>ИНН получателя средств, указанный в возвращаемой сущности</xsd:documentation>
+												</xsd:annotation>
+												</xsd:attribute>
+												<xsd:attribute name="kpp" type="com:KPPType">
+												<xsd:annotation>
+												<xsd:documentation>КПП получателя средств, указанный в возвращаемой сущности</xsd:documentation>
+												</xsd:annotation>
+												</xsd:attribute>
+												</xsd:complexType>
+												</xsd:element>
+												<xsd:element name="PayeeID">
+												<xsd:annotation>
+												<xsd:documentation>УРН получателя средств, указанный в возвращаемой сущности</xsd:documentation>
+												</xsd:annotation>
+												<xsd:simpleType>
+												<xsd:restriction base="xsd:string">
+												<xsd:minLength value="6"/>
+												<xsd:whiteSpace value="collapse"/>
+												<xsd:maxLength value="32"/>
+												</xsd:restriction>
+												</xsd:simpleType>
+												</xsd:element>
+											</xsd:choice>
+										</xsd:complexType>
+									</xsd:element>
+									<xsd:element name="KBKClassifier" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Перечень КБК</xsd:documentation>
+										</xsd:annotation>
+										<xsd:complexType>
+											<xsd:sequence>
+												<xsd:element name="KBK" type="com:KBKType"
+												maxOccurs="100"/>
+											</xsd:sequence>
+										</xsd:complexType>
+									</xsd:element>
+									<xsd:element name="OKTMOClassifier" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Коды ОКТМО</xsd:documentation>
+										</xsd:annotation>
+										<xsd:complexType>
+											<xsd:sequence>
+												<xsd:element name="OKTMO" type="com:OKTMOType"
+												maxOccurs="100"/>
+											</xsd:sequence>
+										</xsd:complexType>
+									</xsd:element>
+									<xsd:element name="Exclude" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Исключения</xsd:documentation>
+										</xsd:annotation>
+										<xsd:simpleType>
+											<xsd:restriction base="xsd:string">
+												<xsd:enumeration value="ZERO-UIN">
+												<xsd:annotation>
+												<xsd:documentation>Признак, означающий ненулевые УИН (допустимое значение - ZERO-UIN).
+При запросе платежей возвращается информация о платежах, в которых указан УИН, отличный от нуля</xsd:documentation>
+												</xsd:annotation>
+												</xsd:enumeration>
+											</xsd:restriction>
+										</xsd:simpleType>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Paging" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Параметры постраничной выдачи </xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:attribute name="pageNumber" use="required">
+						<xsd:annotation>
+							<xsd:documentation>Номер страницы выдачи.</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:int">
+								<xsd:minInclusive value="1"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:attribute>
+					<xsd:attribute name="pageLength" use="required">
+						<xsd:annotation>
+							<xsd:documentation>Количество элементов на странице выдачи.</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:int">
+								<xsd:minInclusive value="1"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:attribute>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element ref="ds:Signature" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Подпись участника косвенного взаимодействия, сформировавшего запрос</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="Id">
+			<xsd:annotation>
+				<xsd:documentation>Необходим для наложения ЭП в формате XadES</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:ID">
+					<xsd:maxLength value="50"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="kind" use="required">
+			<xsd:annotation>
+				<xsd:documentation>Тип запроса</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="PAYMENT">
+						<xsd:annotation>
+							<xsd:documentation>все активные (неаннулированные) платежи</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="PAYMENTMODIFIED">
+						<xsd:annotation>
+							<xsd:documentation>все платежи, имеющие статус уточнения (ChangeStatus@meaning имеет значение «2») или статус аннулирования (ChangeStatus@meaning имеет значение «3»)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="PAYMENTUNMATCHED">
+						<xsd:annotation>
+							<xsd:documentation>все активные (неаннулированные) платежи, которым в системе не поставлена в соответствие (не создана) ни одна квитанция</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="PAYMENTCANCELLED">
+						<xsd:annotation>
+							<xsd:documentation>аннулированные платежи (ChangeStatus@meaning имеет значение «3»)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="PAYMENTMAINCHARGE">
+						<xsd:annotation>
+							<xsd:documentation>запрос платежей по связанным начислениям (используется только ФССП)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="CHARGE">
+						<xsd:annotation>
+							<xsd:documentation>запрос неоплаченных начислений</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="CHARGENOTFULLMATCHED">
+						<xsd:annotation>
+							<xsd:documentation>все начисления в статусе, отличном от
+								"сквитировано" и "сквитировано с отсутствующим платежом"</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="QUITTANCE">
+						<xsd:annotation>
+							<xsd:documentation>последний результата квитирования</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="ALLQUITTANCE">
+						<xsd:annotation>
+							<xsd:documentation>все результаты квитирования, включая
+								аннулированные</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="CHARGESTATUS">
+						<xsd:annotation>
+							<xsd:documentation>начисления и статусы квитирования</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="CHARGE-PRIOR">
+						<xsd:annotation>
+							<xsd:documentation>неоплаченные предварительные начисления, загруженные участником</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="CHARGE-PRIOR-NOTFULLMATCHED">
+						<xsd:annotation>
+							<xsd:documentation>предварительные начисления, загруженные участником, в статусе, отличном от
+								"сквитировано" и "сквитировано с отсутствующим платежом"</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="CHARGEP-RIOR-STATUS">
+						<xsd:annotation>
+							<xsd:documentation>предварительные начисления и их статусы</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="TEMP-CHARGING">
+						<xsd:annotation>
+							<xsd:documentation>неоплаченные предварительные начисления, сформированные ГИС ГМП</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="TEMP-CHARGING-STATUS">
+						<xsd:annotation>
+							<xsd:documentation>предварительные начисления, сформирвоанные ГИС ГМП, со статусами квитирования</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="TEMP-CHARGING-NOTFULLMATCHED">
+						<xsd:annotation>
+							<xsd:documentation>предварительные начисления, сформированнные ГИС ГМП, в статусе, отличном от
+								"сквитировано" и "сквитировано с отсутствующим платежом"</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="originatorID" type="com:URNType">
+			<xsd:annotation>
+				<xsd:documentation>УРН участника косвенного взаимодействия, сформировавшего запрос</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+</xsd:schema>

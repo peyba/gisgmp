@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:qt="http://roskazna.ru/gisgmp/xsd/116/Quittance"
+	xmlns:com="http://roskazna.ru/gisgmp/xsd/116/Common"
+	xmlns:pi="http://roskazna.ru/gisgmp/xsd/116/PaymentInfo"
+	targetNamespace="http://roskazna.ru/gisgmp/xsd/116/Quittance" elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+	<xsd:import namespace="http://roskazna.ru/gisgmp/xsd/116/PaymentInfo"
+		schemaLocation="Payment.xsd"/>
+	<xsd:import namespace="http://roskazna.ru/gisgmp/xsd/116/Common"
+		schemaLocation="../directory/Common.xsd"/>
+	<xsd:complexType name="QuittanceType">
+		<xsd:annotation>
+			<xsd:documentation>Квитанция</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="SupplierBillID">
+				<xsd:annotation>
+					<xsd:documentation>УИН</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:token">
+						<xsd:pattern value="\c{20}"/>
+						<xsd:pattern value="\c{25}"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="CreationDate" type="xsd:date">
+				<xsd:annotation>
+					<xsd:documentation>Дата создания квитанции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BillStatus">
+				<xsd:annotation>
+					<xsd:documentation>Статус, присвоенный начислению при создании квитанции: 1-cквитировано; 2-предварительно сквитировано; 3-не сквитировано;
+4-сквитировано с отсутствующим платежом</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="1"/>
+						<xsd:enumeration value="1">
+							<xsd:annotation>
+								<xsd:documentation>cквитировано</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="2">
+							<xsd:annotation>
+								<xsd:documentation>предварительно сквитировано</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="3">
+							<xsd:annotation>
+								<xsd:documentation>не сквитировано</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="4">
+							<xsd:annotation>
+								<xsd:documentation>сквитировано с отсутствующим платежом</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="payeeINN" type="com:INNType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ИНН получателя средств из начисления. Присутствует в квитанции в случае несовпадения значения этого реквизита в платеже и начислении</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="payeeKPP" type="com:KPPType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>КПП получателя средств из начисления. Присутствует в квитанции в случае несовпадения значения этого реквизита в платеже и начислении</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="KBK" type="com:KBKType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>КПП получателя средств из начисления. Присутствует в квитанции в случае несовпадения значения этого реквизита в платеже и начислении</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OKTMO" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код ОКТМО из начисления. Присутствует в квитанции в случае несовпадения значения этого реквизита в платеже и начислении.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:pattern value="\d{0,11}"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="Balance" type="xsd:long" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Разность между суммой, указанной в начислении и суммой платежей. Целое число, показывающее сумму в копейках. Отрицательное значение информирует о переплате.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PayerIdentifier" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор плательщика из начисления. Присутствует в квитанции в случае несовпадения значения этого реквизита в платеже и начислении.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:token">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="25"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="AccountNumber" type="com:AccountNumType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Номер счета получателя средств из начисления. Присутствует в квитанции в случае несовпадения значения этого реквизита в платеже и начислении.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BIK" type="com:BIKType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>БИК банка получателя средств из начисления. Присутствует в квитанции в случае несовпадения значения этого реквизита в платеже и начислении.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PaymentIdentificationData" type="pi:PaymentIdentificationDataType">
+				<xsd:annotation>
+					<xsd:documentation>Данные, необходимые для идентификации платежа, сквитированного с начислением. 
+Наличие данного тега обязательно, если в теге BillStatus указано значение, не равное «4».
+</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:da="http://roskazna.ru/gisgmp/xsd/116/DoAcknowledgment"
+	xmlns:pdr="http://roskazna.ru/gisgmp/xsd/116/PGU_DataRequest"
+	xmlns:pir="http://roskazna.ru/gisgmp/xsd/116/PGU_ImportRequest"
+	xmlns:pcr="http://roskazna.ru/gisgmp/xsd/116/PGU_ChargesResponse"
+	xmlns:epr="http://roskazna.ru/gisgmp/xsd/116/ExportPaymentsResponse"
+	xmlns:eqr="http://roskazna.ru/gisgmp/xsd/116/ExportQuittanceResponse"
+	xmlns:tk="http://roskazna.ru/gisgmp/xsd/116/Ticket"
+	xmlns:gisgmp="http://roskazna.ru/gisgmp/xsd/116/MessageData"
+	xmlns:psr="http://roskazna.ru/gisgmp/xsd/116/PackageStatusRequest"
+	xmlns:ccr="http://roskazna.ru/gisgmp/xsd/116/ChargeCreationRequest"
+	xmlns:sa="http://roskazna.ru/gisgmp/xsd/116/SelfAdministration"
+	xmlns:crs="http://roskazna.ru/gisgmp/xsd/116/ChargeCreationResponse"
+	targetNamespace="http://roskazna.ru/gisgmp/xsd/116/MessageData" elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+	<xs:import namespace="http://roskazna.ru/gisgmp/xsd/116/PGU_DataRequest"
+		schemaLocation="DataRequest.xsd"/>
+	<xs:import namespace="http://roskazna.ru/gisgmp/xsd/116/PGU_ImportRequest"
+		schemaLocation="ImportRequest.xsd"/>
+	<xs:import namespace="http://roskazna.ru/gisgmp/xsd/116/PGU_ChargesResponse"
+		schemaLocation="ExportChargesResponse.xsd"/>
+	<xs:import namespace="http://roskazna.ru/gisgmp/xsd/116/ExportPaymentsResponse"
+		schemaLocation="ExportPaymentsResponse.xsd"/>
+	<xs:import namespace="http://roskazna.ru/gisgmp/xsd/116/ExportQuittanceResponse"
+		schemaLocation="ExportQuittanceResponse.xsd"/>
+	<xs:import namespace="http://roskazna.ru/gisgmp/xsd/116/Ticket" schemaLocation="Ticket.xsd"/>
+	<xs:import namespace="http://roskazna.ru/gisgmp/xsd/116/DoAcknowledgment"
+		schemaLocation="DoAcknowledgment.xsd"/>
+	<xs:import namespace="http://roskazna.ru/gisgmp/xsd/116/PackageStatusRequest"
+		schemaLocation="PackageStatusRequest.xsd"/>
+	<xs:import namespace="http://roskazna.ru/gisgmp/xsd/116/ChargeCreationRequest"
+		schemaLocation="ChargeCreationRequest.xsd"/>
+	<xs:import namespace="http://roskazna.ru/gisgmp/xsd/116/ChargeCreationResponse"
+		schemaLocation="ChargeCreationResponse.xsd"/>
+	<xs:import namespace="http://roskazna.ru/gisgmp/xsd/116/SelfAdministration"
+		schemaLocation="SelfAdministration.xsd"/>
+	<xs:element name="RequestMessageData" abstract="true">
+		<xs:annotation>
+			<xs:documentation>Данные запроса</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ResponseMessageData" abstract="true">
+		<xs:annotation>
+			<xs:documentation>Данные ответа</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ExportRequest" type="pdr:DataRequest"
+		substitutionGroup="gisgmp:RequestMessageData">
+		<xs:annotation>
+			<xs:documentation>Запрос на экспорт сущностей из ГИС ГМП </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="DoAcknowledgmentRequest" type="da:DoAcknowledgmentRequestType"
+		substitutionGroup="gisgmp:RequestMessageData">
+		<xs:annotation>
+			<xs:documentation>Запрос на принудительное квитирование</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="DoAcknowledgmentResponse" type="da:DoAcknowledgmentResponseType"
+		substitutionGroup="gisgmp:ResponseMessageData">
+		<xs:annotation>
+			<xs:documentation>Ответ на запрос принудительного квитирования</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ExportChargesResponse" type="pcr:ExportChargesResponseType"
+		substitutionGroup="gisgmp:ResponseMessageData">
+		<xs:annotation>
+			<xs:documentation>Ответ на запрос начислений</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ExportPaymentsResponse" type="epr:ExportPaymentsResponseType"
+		substitutionGroup="gisgmp:ResponseMessageData">
+		<xs:annotation>
+			<xs:documentation>Ответ на запрос платежей</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ExportQuittanceResponse" type="eqr:ExportQuittanceResponseType"
+		substitutionGroup="gisgmp:ResponseMessageData">
+		<xs:annotation>
+			<xs:documentation>Ответ на запрос квитанций</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ImportRequest" type="pir:ImportRequestType"
+		substitutionGroup="gisgmp:RequestMessageData">
+		<xs:annotation>
+			<xs:documentation>Запрос на импорт сущностей в ГИС ГМП</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="PackageStatusRequest" type="psr:PackageStatusRequestType"
+		substitutionGroup="gisgmp:RequestMessageData">
+		<xs:annotation>
+			<xs:documentation>Запрос статуса протокола обработки пакета</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ChargeCreationRequest" type="ccr:ChargeCreationRequestType"
+		substitutionGroup="gisgmp:RequestMessageData">
+		<xs:annotation>
+			<xs:documentation>Запрос на формирование предварительного начисления ГИС ГМП</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ChargeCreationResponse" type="crs:ChargeCreationResponseType"
+		substitutionGroup="gisgmp:ResponseMessageData">
+		<xs:annotation>
+			<xs:documentation> Ответ на запрос формирования предварительного начисления ГИС ГМП</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ImportCertificateRequest" type="sa:ImportCertificateRequestType"
+		substitutionGroup="gisgmp:RequestMessageData">
+		<xs:annotation>
+			<xs:documentation>Запрос на загрузку и обновление сертификатов ключа проверки ЭП</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Ticket" type="tk:TicketType" substitutionGroup="gisgmp:ResponseMessageData">
+		<xs:annotation>
+			<xs:documentation>Техническая квитанция</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

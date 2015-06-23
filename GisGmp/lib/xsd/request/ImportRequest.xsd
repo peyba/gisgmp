@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2007 (http://www.altova.com) by BorYV (EMBRACE) -->
+<xsd:schema xmlns:hdr="http://roskazna.ru/xsd/PostBlock"
+	xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:chg="http://roskazna.ru/gisgmp/xsd/116/Charge"
+	xmlns:com="http://roskazna.ru/gisgmp/xsd/116/Common"
+	xmlns:pi="http://roskazna.ru/gisgmp/xsd/116/PaymentInfo"
+	xmlns:pirs="http://roskazna.ru/gisgmp/xsd/116/PGU_ImportRequest"
+	targetNamespace="http://roskazna.ru/gisgmp/xsd/116/PGU_ImportRequest"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://roskazna.ru/gisgmp/xsd/116/Charge"
+		schemaLocation="../entity/document/Charge.xsd"/>
+	<xsd:import namespace="http://roskazna.ru/gisgmp/xsd/116/PaymentInfo"
+		schemaLocation="../entity/document/Payment.xsd"/>
+	<xsd:import namespace="http://roskazna.ru/gisgmp/xsd/116/Common"
+		schemaLocation="../entity/directory/Common.xsd"/>
+	<xsd:import namespace="http://www.w3.org/2000/09/xmldsig#"
+		schemaLocation="xmldsig-core-schema.xsd"/>
+	<xsd:complexType name="ImportRequestType">
+		<xsd:annotation>
+			<xsd:documentation>Запрос на импорт сущности</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Package">
+				<xsd:annotation>
+					<xsd:documentation>Пакет содержащий начисления или платежи или зачисления. Смешивать в одном пакете документы разного типа не допускается.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Document" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>Начисление, платёж или зачисление</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:choice>
+									<xsd:element ref="chg:Charge"/>
+									<xsd:element ref="pi:FinalPayment"/>
+								</xsd:choice>
+								<xsd:attribute name="originatorID" type="com:URNType">
+									<xsd:annotation>
+										<xsd:documentation>УРН организации, сформировавшей сущность</xsd:documentation>
+									</xsd:annotation>
+								</xsd:attribute>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

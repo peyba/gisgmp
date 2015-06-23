@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:da="http://roskazna.ru/gisgmp/xsd/116/DoAcknowledgment" xmlns:qt="http://roskazna.ru/gisgmp/xsd/116/Quittance" xmlns:com="http://roskazna.ru/gisgmp/xsd/116/Common" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="http://roskazna.ru/gisgmp/xsd/116/DoAcknowledgment" elementFormDefault="qualified">
+	<xs:import namespace="http://roskazna.ru/gisgmp/xsd/116/Quittance" schemaLocation="../entity/document/Quittance.xsd"/>
+	<xs:import namespace="http://roskazna.ru/gisgmp/xsd/116/Common" schemaLocation="../entity/directory/Common.xsd"/>
+	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
+	<xs:complexType name="DoAcknowledgmentRequestType">
+		<xs:sequence>
+			<xs:element name="SupplierBillID">
+				<xs:annotation>
+					<xs:documentation>УИН</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:union>
+						<xs:simpleType>
+							<xs:restriction base="xs:token">
+								<xs:pattern value=".{20}|.{25}"/>
+							</xs:restriction>
+						</xs:simpleType>
+						<xs:simpleType>
+							<xs:restriction base="xs:token">
+								<xs:enumeration value="ChargeNotLoaded"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:union>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Payments">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="da:PaymentSystemIdentifier" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element ref="ds:Signature" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Подпись участника косвенного взаимодействия, сформировавшего запрос</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="Id">
+			<xs:annotation>
+				<xs:documentation>Необходим для наложения ЭП в формате XadES</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:ID">
+					<xs:maxLength value="50"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="originatorID" type="com:URNType">
+			<xs:annotation>
+				<xs:documentation>УРН участника косвенного взаимодействия, сформировавшего запрос</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="DoAcknowledgmentResponseType">
+		<xs:choice minOccurs="0">
+			<xs:element name="Quittances">
+				<xs:annotation>
+					<xs:documentation>Квитанции</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Quittance" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:complexContent>
+									<xs:extension base="qt:QuittanceType"/>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="PaymentsNotFound">
+				<xs:annotation>
+					<xs:documentation>Ненайденные в БД платежи</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="da:PaymentSystemIdentifier" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>УИП</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:element name="PaymentSystemIdentifier">
+		<xs:annotation>
+			<xs:documentation>УИП</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:union>
+				<xs:simpleType>
+					<xs:restriction base="xs:token">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="36"/>
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+				<xs:simpleType>
+					<xs:restriction base="xs:token">
+						<xs:enumeration value="PaymentNotLoaded"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:union>
+		</xs:simpleType>
+	</xs:element>
+</xs:schema>

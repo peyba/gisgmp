@@ -1,0 +1,7 @@
+*.suo
+*/**/*.exe
+*/**/*.dll
+*/**/*.pdb
+*/bin/
+*/obj/
+*/**/Resources/*.*

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:bdi="http://roskazna.ru/gisgmp/xsd/116/BudgetIndex" targetNamespace="http://roskazna.ru/gisgmp/xsd/116/BudgetIndex" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:complexType name="BudgetIndexType">
+		<xsd:annotation>
+			<xsd:documentation>Дополнительные реквизиты платежа, предусмотренные приказом Минфина России от 12 ноября 2013 г. №107н</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Status">
+				<xsd:annotation>
+					<xsd:documentation>Статус плательщика - реквизит 101 Распоряжения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="2"/>
+						<xsd:enumeration value="01"/>
+						<xsd:enumeration value="02"/>
+						<xsd:enumeration value="03"/>
+						<xsd:enumeration value="04"/>
+						<xsd:enumeration value="05"/>
+						<xsd:enumeration value="06"/>
+						<xsd:enumeration value="07"/>
+						<xsd:enumeration value="08"/>
+						<xsd:enumeration value="09"/>
+						<xsd:enumeration value="10"/>
+						<xsd:enumeration value="11"/>
+						<xsd:enumeration value="12"/>
+						<xsd:enumeration value="13"/>
+						<xsd:enumeration value="14"/>
+						<xsd:enumeration value="15"/>
+						<xsd:enumeration value="16"/>
+						<xsd:enumeration value="17"/>
+						<xsd:enumeration value="18"/>
+						<xsd:enumeration value="19"/>
+						<xsd:enumeration value="20"/>
+						<xsd:enumeration value="21"/>
+						<xsd:enumeration value="22"/>
+						<xsd:enumeration value="23"/>
+						<xsd:enumeration value="24"/>
+						<xsd:enumeration value="25"/>
+						<xsd:enumeration value="26"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="Purpose" default="0">
+				<xsd:annotation>
+					<xsd:documentation>Показатель основания платежа - реквизит 106 Распоряжения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="2"/>
+						<xsd:enumeration value="ТП"/>
+						<xsd:enumeration value="ЗД"/>
+						<xsd:enumeration value="БФ"/>
+						<xsd:enumeration value="ТР"/>
+						<xsd:enumeration value="РС"/>
+						<xsd:enumeration value="ОТ"/>
+						<xsd:enumeration value="РТ"/>
+						<xsd:enumeration value="ПБ"/>
+						<xsd:enumeration value="ПР"/>
+						<xsd:enumeration value="АП"/>
+						<xsd:enumeration value="АР"/>
+						<xsd:enumeration value="ИН"/>
+						<xsd:enumeration value="ТЛ"/>
+						<xsd:enumeration value="ЗТ"/>
+						<xsd:enumeration value="ДЕ"/>
+						<xsd:enumeration value="ПО"/>
+						<xsd:enumeration value="КТ"/>
+						<xsd:enumeration value="ИД"/>
+						<xsd:enumeration value="ИП"/>
+						<xsd:enumeration value="ТУ"/>
+						<xsd:enumeration value="БД"/>
+						<xsd:enumeration value="ИН"/>
+						<xsd:enumeration value="КП"/>
+						<xsd:enumeration value="00"/>
+						<xsd:enumeration value="0"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="TaxPeriod" default="0">
+				<xsd:annotation>
+					<xsd:documentation>Налоговый период или код таможенного органа -реквизит 107 Распоряжения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:pattern value="МС\.(0[0-9]|1[012])\.\d{4}"/>
+						<xsd:pattern value="КВ\.0[1-4]\.\d{4}"/>
+						<xsd:pattern value="ПЛ\.0[1-2]\.\d{4}"/>
+						<xsd:pattern value="ГД\.00\.\d{4}"/>
+						<xsd:pattern value="(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[012])\.\d{4}"/>
+						<xsd:pattern value="\d{8}"/>
+						<xsd:pattern value="0"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="TaxDocNumber" default="0">
+				<xsd:annotation>
+					<xsd:documentation>Показатель номера документа - реквизит 108 Распоряжения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:token">
+						<xsd:maxLength value="25"/>
+						<xsd:minLength value="1"/>
+						<xsd:whiteSpace value="collapse"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="TaxDocDate" default="0">
+				<xsd:annotation>
+					<xsd:documentation>Показатель даты документа - реквизит 109 Распоряжения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:pattern value="(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[012])\.\d{4}"/>
+						<xsd:pattern value="0"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="PaymentType" default="0">
+				<xsd:annotation>
+					<xsd:documentation>Показатель типа платежа - реквизит 110 Распоряжения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="ШТ"/>
+						<xsd:enumeration value="ЗД"/>
+						<xsd:enumeration value="ПЦ"/>
+						<xsd:enumeration value="ПЕ"/>
+						<xsd:enumeration value="0"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

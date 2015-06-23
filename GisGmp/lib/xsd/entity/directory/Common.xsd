@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:com="http://roskazna.ru/gisgmp/xsd/116/Common"
+	targetNamespace="http://roskazna.ru/gisgmp/xsd/116/Common" elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+	<xsd:simpleType name="AccountNumType">
+		<xsd:annotation>
+			<xsd:documentation>Номер счета.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:length value="20"/>
+			<xsd:whiteSpace value="collapse"/>
+			<xsd:pattern value="\c{20}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="INNType">
+		<xsd:annotation>
+			<xsd:documentation>ИНН юр.лица</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:length value="10"/>
+			<xsd:whiteSpace value="collapse"/>
+			<xsd:pattern value="\d{10}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="KPPType">
+		<xsd:annotation>
+			<xsd:documentation>КПП юр.лица</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:length value="9"/>
+			<xsd:whiteSpace value="collapse"/>
+			<xsd:pattern value="\d{9}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="OKTMOType">
+		<xsd:annotation>
+			<xsd:documentation>Код ОКТМО</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="11"/>
+			<xsd:minLength value="1"/>
+			<xsd:pattern value="\d{11}"/>
+			<xsd:pattern value="\d{8}"/>
+			<xsd:pattern value="0"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="KBKType">
+		<xsd:annotation>
+			<xsd:documentation>КБК</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:length value="20"/>
+			<xsd:whiteSpace value="collapse"/>
+			<xsd:pattern value="\d{20}"/>
+			<xsd:pattern value="0"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="OGRNType">
+		<xsd:annotation>
+			<xsd:documentation>ОГРН</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:length value="13"/>
+			<xsd:whiteSpace value="collapse"/>
+			<xsd:pattern value="\d{13}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="BIKType">
+		<xsd:annotation>
+			<xsd:documentation>БИК</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:length value="9"/>
+			<xsd:whiteSpace value="collapse"/>
+			<xsd:pattern value="\d{9}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="SWIFTType">
+		<xsd:annotation>
+			<xsd:documentation>SWIFT</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:whiteSpace value="collapse"/>
+			<xsd:maxLength value="11"/>
+			<xsd:minLength value="8"/>
+			<xsd:pattern value="[A-Z0-9]{8}"/>
+			<xsd:pattern value="[A-Z0-9]{11}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="SupplierBillIDType">
+		<xsd:annotation>
+			<xsd:documentation>УИН</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{20}"/>
+			<xsd:pattern value="\d{25}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="URNType">
+		<xsd:annotation>
+			<xsd:documentation>УРН</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:length value="6"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="AdditionalDataType">
+		<xsd:sequence>
+			<xsd:element name="Name">
+				<xsd:annotation>
+					<xsd:documentation>Наименование поля</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="100"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="Value">
+				<xsd:annotation>
+					<xsd:documentation>Значение поля</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="AdditionalData" type="com:AdditionalDataType">
+		<xsd:annotation>
+			<xsd:documentation>Дополнительные поля</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PayerIdentifier">
+		<xsd:annotation>
+			<xsd:documentation>Идентификатор плательщика</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:pattern value="2\d{19}"/>
+				<xsd:pattern value="3\d{19}"/>
+				<xsd:pattern value="4\d{12}"/>
+				<xsd:pattern value="((0[1-9])|(1[0-5])|(2[124]))[0-9a-zA-Zа-яА-Я]{23}"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="ChangeStatus">
+		<xsd:annotation>
+			<xsd:documentation>Статус изменения</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence minOccurs="0">
+				<xsd:element name="Reason">
+					<xsd:annotation>
+						<xsd:documentation>Основание изменения</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="512"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:attribute name="meaning" use="required">
+				<xsd:annotation>
+					<xsd:documentation>1 - новый 2 - уточнение 3 - аннулирование 4 - отмена аннулирования</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="1"/>
+						<xsd:enumeration value="1">
+							<xsd:annotation>
+								<xsd:documentation>Новый</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="2">
+							<xsd:annotation>
+								<xsd:documentation>Уточнение</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="3">
+							<xsd:annotation>
+								<xsd:documentation>Аннулирование</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="4"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="TransKind">
+		<xsd:annotation>
+			<xsd:documentation>Вид операции</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:enumeration value="01"/>
+				<xsd:enumeration value="02"/>
+				<xsd:enumeration value="06"/>
+				<xsd:enumeration value="16"/>
+				<xsd:enumeration value="ПД"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+</xsd:schema>

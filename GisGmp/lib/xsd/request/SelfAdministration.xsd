@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:sa="http://roskazna.ru/gisgmp/xsd/116/SelfAdministration" xmlns:com="http://roskazna.ru/gisgmp/xsd/116/Common" targetNamespace="http://roskazna.ru/gisgmp/xsd/116/SelfAdministration" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://roskazna.ru/gisgmp/xsd/116/Common" schemaLocation="../entity/directory/Common.xsd"/>
+	<xs:complexType name="ImportCertificateRequestType">
+		<xs:annotation>
+			<xs:documentation>Загрузка/обновление сертификата</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RequestEntry" type="sa:RequestEntryType" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RequestEntryType">
+		<xs:attribute name="operation" use="required">
+			<xs:annotation>
+				<xs:documentation>вид опереции: APPEND – загрузка нового сертификата ключа проверки ЭП,
+REPLACE – обновление хранящегося в ГИС ГМП сертификата ключа проверки ЭП.
+</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="APPEND">
+						<xs:annotation>
+							<xs:documentation>Добавление сертификата</xs:documentation>
+						</xs:annotation>
+					</xs:enumeration>
+					<xs:enumeration value="REPLACE">
+						<xs:annotation>
+							<xs:documentation>Обновление существующего</xs:documentation>
+						</xs:annotation>
+					</xs:enumeration>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="ownership" type="com:URNType" use="required">
+			<xs:annotation>
+				<xs:documentation>УРН владельца сертификата ключа проверки ЭП</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="serialNumber">
+			<xs:annotation>
+				<xs:documentation>Уникальный номер сертификата (обязательно указание при обновлении сертификата)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="200"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="certificate" type="xs:base64Binary" use="required">
+			<xs:annotation>
+				<xs:documentation>Файл, содержащий сертификат ключа проверки ЭП участника в формате Base64</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2007 (http://www.altova.com) by BorYV (EMBRACE) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:ns1="http://roskazna.ru/gisgmp/xsd/116/ErrInfo"
+	targetNamespace="http://roskazna.ru/gisgmp/xsd/116/ErrInfo" elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+	<xsd:complexType name="ResultInfo">
+		<xsd:annotation>
+			<xsd:documentation>Информация о результате обработки</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ResultCode">
+				<xsd:annotation>
+					<xsd:documentation>Код результата обработки: 0 — если запрос успешно принят или код ошибки в случае отказа в приеме к обработке документа</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:token">
+						<xsd:maxLength value="32"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="ResultDescription" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Описание результата обработки</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="ResultData" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Данные результата обработки</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="2048"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

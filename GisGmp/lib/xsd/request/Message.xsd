@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2007 (http://www.altova.com) by MirSV (EMBRACE) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+	xmlns:msgd="http://roskazna.ru/gisgmp/xsd/116/MessageData"
+	xmlns:gisgmp="http://roskazna.ru/gisgmp/xsd/116/Message"
+	targetNamespace="http://roskazna.ru/gisgmp/xsd/116/Message" elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+	<xs:import namespace="http://roskazna.ru/gisgmp/xsd/116/MessageData"
+		schemaLocation="MessageData.xsd"/>
+	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#"
+		schemaLocation="xmldsig-core-schema.xsd"/>
+	<xs:element name="RequestMessage" type="gisgmp:RequestMessageType">
+		<xs:annotation>
+			<xs:documentation>Запрос к ГИС ГМП</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ResponseMessage" type="gisgmp:ResponseMessageType">
+		<xs:annotation>
+			<xs:documentation>Ответ ГИС ГМП</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="RequestMessageType">
+		<xs:sequence>
+			<xs:element ref="msgd:RequestMessageData"/>
+			<xs:element ref="ds:Signature" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ЭП</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="Id" use="required">
+			<xs:annotation>
+				<xs:documentation>Идентификатор сообщения</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:ID">
+					<xs:maxLength value="50"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="timestamp" type="xs:dateTime" use="required">
+			<xs:annotation>
+				<xs:documentation>Дата и время формирования сообщения</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="senderIdentifier" use="required">
+			<xs:annotation>
+				<xs:documentation>УРН участника-отправителя сообщения</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="6"/>
+					<xs:maxLength value="32"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="senderRole">
+			<xs:annotation>
+				<xs:documentation>Полномочие участника-отправителя сообщения, с которым происходит обращение к ГИС ГМП. 
+Требуется указание, если участник зарегистрирован в ГИС ГМП с несколькими полномочиями одновременно
+</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="10"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="callBackURL" type="xs:anyURI">
+			<xs:annotation>
+				<xs:documentation>Адрес для осуществления обратного вызова при асинхронном взаимодействии</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ResponseMessageType">
+		<xs:sequence>
+			<xs:element ref="msgd:ResponseMessageData">
+				<xs:annotation>
+					<xs:documentation>Данные ответа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="ds:Signature" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ЭП</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="Id" use="required">
+			<xs:annotation>
+				<xs:documentation>Идентификатор сообщения</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:ID">
+					<xs:maxLength value="50"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="rqId" use="required">
+			<xs:annotation>
+				<xs:documentation>Идентификатор запроса</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:token"/>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="timestamp" type="xs:dateTime" use="required">
+			<xs:annotation>
+				<xs:documentation>Дата и время формирования сообщения</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="senderIdentifier" use="required">
+			<xs:annotation>
+				<xs:documentation>УРН участника-отправителя сообщения</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="6"/>
+					<xs:maxLength value="32"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>

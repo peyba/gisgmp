@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:com="http://roskazna.ru/gisgmp/xsd/116/Common"
+	xmlns:org="http://roskazna.ru/gisgmp/xsd/116/Organization"
+	targetNamespace="http://roskazna.ru/gisgmp/xsd/116/Organization" elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+	<xsd:import namespace="http://roskazna.ru/gisgmp/xsd/116/Common"
+		schemaLocation="../directory/Common.xsd"/>
+	<xsd:complexType name="OrganizationType">
+		<xsd:annotation>
+			<xsd:documentation>Данные об организации</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Name">
+				<xsd:annotation>
+					<xsd:documentation>Сокращенное наименование организации</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="160"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="INN">
+				<xsd:annotation>
+					<xsd:documentation>ИНН организации</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="com:INNType"/>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="KPP">
+				<xsd:annotation>
+					<xsd:documentation>КПП организации</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="com:KPPType"/>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="OGRN" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ОГРН организации</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="com:OGRNType"/>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="Account" type="org:AccountType">
+				<xsd:annotation>
+					<xsd:documentation>Реквизиты счета организации</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AccountType">
+		<xsd:annotation>
+			<xsd:documentation>Описание счёта организации / банка</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="AccountNumber" type="com:AccountNumType">
+				<xsd:annotation>
+					<xsd:documentation>Номер банковского счёта</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Bank" type="org:BankType">
+				<xsd:annotation>
+					<xsd:documentation>Данные банка, в котором открыт счёт</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="BankType">
+		<xsd:annotation>
+			<xsd:documentation>Данные банка</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Name" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование структурного подразделениякредитной организации или  подразделения Банка России, в котором открыт счет.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="160"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:choice>
+				<xsd:element name="BIK" type="com:BIKType">
+					<xsd:annotation>
+						<xsd:documentation>БИК структурного подразделения  кредитной организации или  подразделения Банка России, в котором открыт счет.
+Наличие этого тега исключает тег SWIFT.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="SWIFT" type="com:SWIFTType">
+					<xsd:annotation>
+						<xsd:documentation>Код SWIFT иностранного банка, в котором открыт счет. 
+Наличие этого тега исключает тег BIK.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+			<xsd:element minOccurs="0" name="CorrespondentBankAccount" type="com:AccountNumType">
+				<xsd:annotation>
+					<xsd:documentation>Корреспондентский счёт Банка в ЦБ (РКЦ)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

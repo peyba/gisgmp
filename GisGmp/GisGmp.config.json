@@ -1,0 +1,13 @@
+{
+  "send": {
+    "service_url": "http://smev-mvf.test.gosuslugi.ru:7777/gateway/services/SID0003663/wsdl",
+	"soap_action":"http://roskazna.ru/gisgmp/02000000/SmevGISGMPService/GISGMPTransferMsg",
+	"proxy_server": null,
+	"proxy_port": null,
+	"proxy_user": null,
+	"proxy_pass": null,
+	"timeout": 9999999
+  },
+  "certificate": "<search_string>",
+  "connectionstring":"App=GisGmpApp;Server=<ur_server>;Database=<ur_db>;User ID=<ur_usr>;Password=<ur_usr_pass>"
+}

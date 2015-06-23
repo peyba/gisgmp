@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:ns1="http://roskazna.ru/gisgmp/xsd/116/PackageStatusRequest"
+	targetNamespace="http://roskazna.ru/gisgmp/xsd/116/PackageStatusRequest"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:complexType name="PackageStatusRequestType">
+		<xsd:annotation>
+			<xsd:documentation>Запрос статуса обработки пакета</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="PackageID" type="xsd:ID">
+				<xsd:annotation>
+					<xsd:documentation>идентификатор пакета</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

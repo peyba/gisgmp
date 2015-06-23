@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:eirs="http://roskazna.ru/gisgmp/xsd/116/ExportIncomesResponse" xmlns:pi="http://roskazna.ru/gisgmp/xsd/116/PaymentInfo" targetNamespace="http://roskazna.ru/gisgmp/xsd/116/ExportIncomesResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://roskazna.ru/gisgmp/xsd/116/PaymentInfo" schemaLocation="../entity/document/Payment.xsd"/>
+	<xsd:complexType name="ExportIncomesResponseType">
+		<xsd:sequence>
+			<xsd:element name="Incomes">
+				<xsd:annotation>
+					<xsd:documentation>Перечень Зачислений</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence minOccurs="0">
+						<xsd:element name="IncometInfo" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="IncomeData" type="xsd:base64Binary">
+										<xsd:annotation>
+											<xsd:documentation>Данные файла Зачисления загруженного
+												в УНИФО</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="IncomeSignature" type="xsd:base64Binary" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Данные файла ЭП Зачисления,
+												загруженного в УНИФО</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+					<xsd:attribute name="hasMore" type="xsd:boolean" use="required">
+						<xsd:annotation>
+							<xsd:documentation>false — достигнут конец выборки, true — после
+								последней выгруженной сущности в выборке имеются
+								другие</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

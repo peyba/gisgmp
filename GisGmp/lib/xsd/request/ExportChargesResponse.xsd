@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xsd:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:pcrs="http://roskazna.ru/gisgmp/xsd/116/PGU_ChargesResponse"
+	targetNamespace="http://roskazna.ru/gisgmp/xsd/116/PGU_ChargesResponse"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:complexType name="ExportChargesResponseType">
+		<xsd:sequence>
+			<xsd:element name="Charges">
+				<xsd:annotation>
+					<xsd:documentation>Перечень начислений </xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence minOccurs="0">
+						<xsd:element name="ChargeInfo" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>Данные начисления</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="ChargeData" type="xsd:base64Binary">
+										<xsd:annotation>
+											<xsd:documentation>Данные начисления, полученные при импорте от АН/ГАН </xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="ChargeSignature" type="xsd:base64Binary"
+										minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Данные файла ЭП начисления, загруженного от АН/ГАН в ГИС ГМП</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="AmountToPay" type="xsd:long">
+										<xsd:annotation>
+											<xsd:documentation>Остаток суммы подлежащей уплате, указанной в начислении (в копейках)</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="QuittanceWithPaymentStatus" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Статус квитирования с платежами 1 - сквитировано 2 - предв. сквитировано 3 - не сквитировано 4 - сквитировано с отсутствующим в системе платежом </xsd:documentation>
+										</xsd:annotation>
+										<xsd:simpleType>
+											<xsd:restriction base="xsd:string">
+												<xsd:length value="1"/>
+												<xsd:enumeration value="1"/>
+												<xsd:enumeration value="2"/>
+												<xsd:enumeration value="3"/>
+												<xsd:enumeration value="4"/>
+											</xsd:restriction>
+										</xsd:simpleType>
+									</xsd:element>
+									<xsd:element name="IsRevoked" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Признак аннулированного начисления: true - начисление аннулировано; false - начисление действующее</xsd:documentation>
+										</xsd:annotation>
+										<xsd:complexType>
+											<xsd:simpleContent>
+												<xsd:extension base="xsd:boolean">
+												<xsd:attribute name="date" type="xsd:dateTime"/>
+												</xsd:extension>
+											</xsd:simpleContent>
+										</xsd:complexType>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+					<xsd:attribute name="hasMore" type="xsd:boolean" use="required">
+						<xsd:annotation>
+							<xsd:documentation>false — достигнут конец выборки, true — после		последней выгруженной сущности в выборке имеются другие</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="needReRequest" type="xsd:boolean" default="false">
+						<xsd:annotation>
+							<xsd:documentation>true - Требуется перезапрос. В случае если для получения ответа задействуются внешняя система и ответ от неё не был получен (внешняя система недоступна либо поучена ошибка) </xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

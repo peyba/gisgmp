@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:crs="http://roskazna.ru/gisgmp/xsd/116/ChargeCreationResponse"
+	targetNamespace="http://roskazna.ru/gisgmp/xsd/116/ChargeCreationResponse"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="ChargeCreationResponseType">
+		<xs:sequence>
+			<xs:element name="ChargeData" type="xs:base64Binary">
+				<xs:annotation>
+					<xs:documentation>Данные предварительного начисления, сформированного ГИС ГМП по запросу участника.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

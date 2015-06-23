@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:qt="http://roskazna.ru/gisgmp/xsd/116/Quittance"
+	xmlns:eqrs="http://roskazna.ru/gisgmp/xsd/116/ExportQuittanceResponse"
+	targetNamespace="http://roskazna.ru/gisgmp/xsd/116/ExportQuittanceResponse"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://roskazna.ru/gisgmp/xsd/116/Quittance"
+		schemaLocation="../entity/document/Quittance.xsd"/>
+	<xsd:complexType name="ExportQuittanceResponseType">
+		<xsd:sequence>
+			<xsd:element name="Quittances">
+				<xsd:annotation>
+					<xsd:documentation>Перечень квитанций.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence minOccurs="0">
+						<xsd:element name="Quittance" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>Данные созданной квитанции.</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:complexContent>
+									<xsd:extension base="qt:QuittanceType">
+										<xsd:sequence>
+											<xsd:element name="IsRevoked" type="xsd:boolean"
+												minOccurs="0">
+												<xsd:annotation>
+												<xsd:documentation>Признак аннулированной квитанции: true - квитанция аннулирована; false квитанция действующая</xsd:documentation>
+												</xsd:annotation>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:extension>
+								</xsd:complexContent>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+					<xsd:attribute name="hasMore" type="xsd:boolean" use="required">
+						<xsd:annotation>
+							<xsd:documentation>false — достигнут конец выборки, true — после последней выгруженной сущности в выборке имеются другие</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>
