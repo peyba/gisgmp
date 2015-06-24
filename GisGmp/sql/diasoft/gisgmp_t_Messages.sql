@@ -12,4 +12,3 @@ create table gisgmp_t_Messages (
 )
 go
 grant select on gisgmp_t_Messages to public
-grant insert, delete, update, alter on gisgmp_t_Messages to <system_owner>

@@ -81,4 +81,3 @@ as
 
 go
 grant exec on gisgmp_sp_GetPeymentsImportRequestByDealTransactIdsList to public
-grant alter on gisgmp_sp_GetPeymentsImportRequestByDealTransactIdsList to <system_owner>

@@ -23,4 +23,3 @@ as
 
 go
 grant exec on gisgmp_sp_CreatePackageStatusRequestMessage to public
-grant alter on gisgmp_sp_CreatePackageStatusRequestMessage to <system_owner>

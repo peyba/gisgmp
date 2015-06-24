@@ -10,7 +10,6 @@ create table gisgmp_t_Config (
 
 go
 grant select on gisgmp_t_Config to public
-grant insert, delete, update, alter on gisgmp_t_Config to <system_owner>
 
 go
 insert gisgmp_t_Config

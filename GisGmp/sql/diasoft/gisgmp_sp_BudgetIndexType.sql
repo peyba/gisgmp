@@ -64,4 +64,3 @@ as
 
 go
 grant exec on gisgmp_sp_BudgetIndexType to public
-grant alter on gisgmp_sp_BudgetIndexType to <system_owner>

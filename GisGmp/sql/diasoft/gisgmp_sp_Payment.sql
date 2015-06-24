@@ -214,4 +214,3 @@ as
 
 go
 grant exec on gisgmp_sp_Payment to public
-grant alter on gisgmp_sp_Payment to <system_owner>

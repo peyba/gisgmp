@@ -13,17 +13,29 @@ as
   /* END ARITHABORT */
 
   declare
+    @SenderCode varchar(9),
+    @SenderName varchar(256),
     @Sender xml,
+    @RecipientCode varchar(9),
+    @RecipientName varchar(256),
     @Recipient xml,
     @Originator xml,
     @Service xml
 
-  exec gisgmp_sp_orgExternalType
-    @Type = 0,
-    @Xml = @Sender output;
+  select @SenderCode = Value from gisgmp_t_Config where Name = 'sender_code'
+  select @SenderName = Value from gisgmp_t_Config where Name = 'sender_name'
 
   exec gisgmp_sp_orgExternalType
-    @Type = 1,
+    @Code = @SenderCode,
+    @Name = @SenderName,
+    @Xml = @Sender output;
+
+  select @RecipientCode = Value from gisgmp_t_Config where Name = 'recipient_code'
+  select @RecipientName = Value from gisgmp_t_Config where Name = 'recipient_name'
+
+  exec gisgmp_sp_orgExternalType
+    @Code = @RecipientCode,
+    @Name = @RecipientName,
     @Xml = @Recipient output;
 
   WITH XMLNAMESPACES ('http://smev.gosuslugi.ru/rev120315' as [smev],
@@ -86,4 +98,3 @@ as
 
 go
 grant exec on gisgmp_sp_GISGMPTransferMsg to public
-grant alter on gisgmp_sp_GISGMPTransferMsg to <system_owner>

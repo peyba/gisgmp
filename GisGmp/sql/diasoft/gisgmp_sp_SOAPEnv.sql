@@ -49,4 +49,3 @@ as
 
 go
 grant exec on gisgmp_sp_SOAPEnv to public
-grant alter on gisgmp_sp_SOAPEnv to <system_owner>

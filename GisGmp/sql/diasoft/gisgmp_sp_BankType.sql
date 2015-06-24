@@ -50,4 +50,3 @@ as
 go
 
 grant exec on gisgmp_sp_BankType to public
-grant alter on gisgmp_sp_BankType to <system_owner>

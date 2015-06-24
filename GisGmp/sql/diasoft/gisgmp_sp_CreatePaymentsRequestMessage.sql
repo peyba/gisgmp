@@ -93,4 +93,3 @@ as
 
 go
 grant exec on gisgmp_sp_CreatePaymentsRequestMessage to public
-grant alter on gisgmp_sp_CreatePaymentsRequestMessage to <system_owner>
