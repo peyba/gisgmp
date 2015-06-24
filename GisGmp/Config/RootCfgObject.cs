@@ -26,13 +26,22 @@ namespace GisGmp.Config
             string strAppDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             string cfgFilePath = Path.Combine(strAppDir, cfgFileName);
 
-            var cfgFileStream = new FileStream(cfgFilePath, FileMode.Open);
-            cfgFileStream.Position = 0;
+            RootCfgObject cfgObject;
+            using (var cfgFileStream = new FileStream(cfgFilePath, FileMode.Open))
+            {
+                 /* 
+                 * проблема: метод ReadObject класса DataContractJsonSerializer падает по ошибке 
+                 * SerializationException при попытке распарсить json-документ 
+                 * содержащий Byte Order Mark (BOM)
+                 * решение: перематываем на первыйсущественный байт
+                 */
+                cfgFileStream.RewindBOM();
 
-            var cfgSerializer = new DataContractJsonSerializer(typeof(RootCfgObject));
-            var cfgObject = (RootCfgObject)cfgSerializer.ReadObject(cfgFileStream);
-            
-            cfgFileStream.Close();
+                var cfgSerializer = new DataContractJsonSerializer(typeof(RootCfgObject));
+                cfgObject = (RootCfgObject)cfgSerializer.ReadObject(cfgFileStream);
+
+                cfgFileStream.Close();
+            }
 
             return cfgObject;
         }

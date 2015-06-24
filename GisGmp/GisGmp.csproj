@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ByteArrayExtention.cs" />
     <Compile Include="Config\RootCfgObject.cs" />
     <Compile Include="Config\SendCfgObject.cs" />
     <Compile Include="Cryptography\CannotFindCertificateException.cs" />
@@ -50,6 +51,7 @@
     <Compile Include="Cryptography\SignElementException.cs" />
     <Compile Include="Cryptography\SignGisGmpMessageExtension.cs" />
     <Compile Include="Cryptography\SmevSignedXml.cs" />
+    <Compile Include="FileStreamExtention.cs" />
     <Compile Include="GisGmpGateway.cs" />
     <Compile Include="HaveNotResponseException.cs" />
     <Compile Include="Message.cs" />
