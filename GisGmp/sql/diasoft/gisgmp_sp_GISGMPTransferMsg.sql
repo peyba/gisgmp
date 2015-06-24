@@ -62,7 +62,7 @@ as
         Будет уточнена после публикации электронного сервиса в промышленном контуре СМЭВ. 
         Наличие этого тега исключает тег Service
       */
-      [smev:Message/smev:ServiceName] = 'Мнемоника электронного сервиса ГИС ГМП. Будет уточнена после публикации электронного сервиса в промышленном контуре СМЭВ', 
+      [smev:Message/smev:ServiceName] = (select Value from gisgmp_t_Config where Name = 'service_name'), 
       /*
         Данные об электронном сервисе ГИС ГМП. 
         Будут уточнены после публикации электронного сервиса в промышленном контуре СМЭВ. 
@@ -70,7 +70,7 @@ as
       */
       --[smev:Message/smev:Service] = @Service,
       /* Тип сообщения. Заполняется в соответствии с методическими рекомендациями версии 2.5.6 */
-      [smev:Message/smev:TypeCode] = 'GSRV',
+      [smev:Message/smev:TypeCode] = (select Value from gisgmp_t_Config where Name = 'code_type'),
       /* Статус сообщения. Принимает значение «REQUEST» */
       [smev:Message/smev:Status] = 'REQUEST',
       /* Дата создания сообщения. Заполняется в соответствии с Методическими рекомендациями версии 2.5.6 */
@@ -87,7 +87,7 @@ as
       /* Дата и время формирования сообщения*/
       [smev:MessageData/smev:AppData/gisgmp:RequestMessage/@timestamp] = convert(varchar, getdate(), 126) + 'Z', 
       /* УРН участника-отправителя сообщения */
-      [smev:MessageData/smev:AppData/gisgmp:RequestMessage/@senderIdentifier] = '000172', 
+      [smev:MessageData/smev:AppData/gisgmp:RequestMessage/@senderIdentifier] = (select Value from gisgmp_t_Config where Name = 'urn'), 
       [smev:MessageData/smev:AppData/gisgmp:RequestMessage] = @RequestMessage
     FOR XML PATH(''), ELEMENTS
   )

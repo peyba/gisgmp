@@ -49,18 +49,6 @@ as
       @PackageId = @PackageId
 
   end
-  else if  @ResponseType = 'PackageProcessResult'
-  begin
-    print 'Ok'
-  end
-  else
-  begin
-
-    declare @Message varchar(256)
-    select @Message = 'Неизвестный тип ответа: ' + @ResponseType;
-    raiserror(@Message, 16, 1);
-
-  end
 
   if @ARITHABORT = 'OFF' SET ARITHABORT OFF
 
