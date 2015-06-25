@@ -54,7 +54,11 @@ as
           else left(@TaxDate, 2) + '.' + substring(@TaxDate, 3, 2) + '.' + right(@TaxDate, 4)
         end,
       /* Показатель типа платежа — реквизит 110 Распоряжения */
-      [bdi:PaymentType] = isnull(nullif(@TaxType, ''), '0')
+      [bdi:PaymentType] = 
+        case 
+          when @TaxType in ('ШТ','ЗД','ПЦ','ПЕ') then @TaxType
+          else '0'
+        end
     FOR XML PATH(''), ELEMENTS
   )
 
