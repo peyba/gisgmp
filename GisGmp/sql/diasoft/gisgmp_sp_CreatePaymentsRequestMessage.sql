@@ -40,7 +40,7 @@ as
   select DealTransactId
   from @RequestReport
   where DealTransactId not in (
-    select DealTransactId from @RequestReport where PackageResponseCode in (0, 5, 50)
+    select DealTransactId from @RequestReport where PackageResponseCode in (0, 5)
   )
 
   declare @DodumentsInPackage int

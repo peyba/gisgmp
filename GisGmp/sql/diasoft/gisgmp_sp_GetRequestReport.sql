@@ -112,7 +112,7 @@ as
         [Data] = cast(RECORDS.t.query('./err:ResultData/text()') as varchar(max))  
       from gisgmp_t_Messages
           CROSS APPLY [Xml].nodes('.//md:Ticket/tic:PackageProcessResult/tic:EntityProcessResult') RECORDS(t)
-      where StateId = 0 and TypeId = 1    
+      where StateId = 0 and TypeId = 1
     ) PackRes
       on PackRes.EntityId = Ids.EntityId
 
