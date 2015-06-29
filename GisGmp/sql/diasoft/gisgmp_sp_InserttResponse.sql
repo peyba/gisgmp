@@ -45,8 +45,11 @@ as
     where Id = @Id
       and cast(cast(RECORDS.t.query('./err:ResultCode/text()') as varchar(3)) as int) = 0
   
-    exec gisgmp_sp_CreatePackageStatusRequestMessage
-      @PackageId = @PackageId
+    if @PackageId is not null
+    begin
+      exec gisgmp_sp_CreatePackageStatusRequestMessage
+        @PackageId = @PackageId
+    end
 
   end
 
