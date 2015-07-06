@@ -87,9 +87,11 @@ begin
       select @PayerIdentifier = 
         (select top 1 GisGmpType from @DocTypeDictionary where DiasType = il.DocTypeID) +
         upper(
-          replace(replace(replace(
-            right(REPLICATE('0', 20) + rtrim(il.DocSeries) + rtrim(il.NumDoc), 20)
-          ,'-', ''), 'N', ''), ' ', '') 
+          right(REPLICATE('0', 20) + 
+            replace(replace(replace(
+              rtrim(il.DocSeries) + rtrim(il.NumDoc)
+            ,'-', ''), 'N', ''), ' ', '') 
+          , 20)
         ) +
         c.NumCode
       from tInstLicense il
