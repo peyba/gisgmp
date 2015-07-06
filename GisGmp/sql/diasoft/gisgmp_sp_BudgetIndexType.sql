@@ -34,7 +34,12 @@ as
        /* Статус плательщика — реквизит 101 Распоряжения */
       [bdi:Status] = right('0' + isnull(nullif(cast(@StatusSostav as varchar(2)), ''), '00'), 2),
       /* Показатель основания платежа — реквизит 106 Распоряжения */
-      [bdi:Purpose] = isnull(nullif(@TaxBase, ''), '0'),
+      [bdi:Purpose] =
+        case
+          when isnull(nullif(@TaxBase, ''), '0') not in ('ТП', 'ЗД', 'БФ', 'ТР', 'РС', 'ОТ', 'РТ', 'ПБ', 'ПР', 'АП', 'АР', 'ИН', 'ТЛ', 'ЗТ', 'ДЕ', 'ПО', 'КТ', 'ИД', 'ИП', 'ТУ', 'БД', 'ИН', 'КП', '00', '0')
+          then '0'
+          else isnull(nullif(@TaxBase, ''), '0')
+        end,
       /* Налоговый период или код таможенного органа — реквизит 107 Распоряжения */
       [bdi:TaxPeriod] =
         case isnull(nullif(@TaxPeriod, ''), '0')
