@@ -17,7 +17,6 @@ as
     DealTransactId numeric(15,0),
     SystemIdentyfier varchar(32),
     RequestMessageId int,
-    DealTransactDate datetime,
     RequestId varchar(39),
     RequestResponseMessageId int,
     RequestResponseCode varchar(3),
