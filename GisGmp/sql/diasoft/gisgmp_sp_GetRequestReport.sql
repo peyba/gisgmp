@@ -25,31 +25,27 @@ as
     select
       [DealTransactId] = dt.DealTransactID,
       [SystemIdentifier] = dbo.gisgmp_f_DealTransactIdToSystemIdentifier(dt.DealTransactId)
-    from tDealTransact dt with(nolock index=XIE8tDealTransact)
-      join tPayInstruct  p  with(nolock index= XIE2tPayInstruct) on p.DealTransactID = dt.DealTransactID
+    from tDealTransact dt
+      join tPayInstruct p
+        on p.DealTransactID = dt.DealTransactID
         and p.Belong = 1
         and (
-          left(p.AccClient, 5) = '40101'
-          or (
-            left(p.AccClient, 5) in ('40601','40701')
-            and substring(AccClient, 14, 1) in ('1', '3')
-          )
-          or (
-            left(p.AccClient, 5) = '40501'
-            and substring(AccClient, 14, 1) ='2'
-          )
-          or (
-            left(p.AccClient, 5) in ('40503','40603','40703')
-            and substring(AccClient, 14, 1) ='4'
-          )
+          p.AccClient like '40101%'
+          or p.AccClient like '40[67]01________[13]%'
+          or p.AccClient like '40501________2%'
+          or p.AccClient like '40[567]03_______4%'
         )
+      left join tKey k
+        on k.ObjectId = dt.DealTransactId
+        and k.InterfaceFieldId = 8
     where 0=0
       and dt.TransactType in (4, 5)
-      and dt.Date between @BeginDate and @EndDate
+      and dt.Date between '20150716' and '20150716'
       and dt.Direction = 0
       and dt.Confirmed <> 101 -- не фикт
       and dt.InstrumentID = 1195 -- **operdoc
-      and substring(dt.numberext,2,1) = '1'
+      and dt.NumberExt like '_1%'
+      and k.PKey is not null
   ),
 
   /* TODO: info for Documents */
