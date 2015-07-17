@@ -40,7 +40,7 @@ as
         and k.InterfaceFieldId = 8
     where 0=0
       and dt.TransactType in (4, 5)
-      and dt.Date between '20150716' and '20150716'
+      and dt.Date between @BeginDate and @EndDate
       and dt.Direction = 0
       and dt.Confirmed <> 101 -- не фикт
       and dt.InstrumentID = 1195 -- **operdoc
